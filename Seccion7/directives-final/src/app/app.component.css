@@ -1,6 +1,7 @@
 .container {
   margin-top: 30px;
 }
-.odd{
-  color: rgb(245, 222, 12);
+
+.odd {
+  color: red;
 }
