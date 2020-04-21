@@ -18,6 +18,7 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
 import { CanDeactivateGuard } from './servers/edit-server/can-deactivate-guard.service';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { ServerResolver } from './servers/server/server-resolver.service';
 
 //rutas disponibles en la aplicación
 // se lleva esta parte a  app-routing-module.ts
@@ -66,7 +67,7 @@ const appRoutes: Routes = [
     // se lleva esta líne a app-routing-module.ts
     //RouterModule.forRoot(appRoutes)
   ],
-  providers: [ServersService, AuthService, AuthGuard, CanDeactivateGuard],
+  providers: [ServersService, AuthService, AuthGuard, CanDeactivateGuard, ServerResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
