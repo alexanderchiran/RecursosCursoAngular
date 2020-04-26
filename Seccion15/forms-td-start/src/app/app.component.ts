@@ -8,6 +8,7 @@ import { NgForm } from '@angular/forms';
 })
 export class AppComponent {
   @ViewChild('f', { static: true }) fomularioRegistro: NgForm;
+  
   defaultQuestion = 'pet';
   answer = '';
   genders = ['Male', 'Female'];
