@@ -1,22 +1,26 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpParams, HttpEventType } from '@angular/common/http';
+import { map, catchError, tap } from 'rxjs/operators';
 import { Subject, throwError } from 'rxjs';
 import { Postentity } from './postentity.model';
 
 @Injectable({ providedIn: 'root' })
 export class PostsService {
   error = new Subject<string>();
-  apiPost = 'https://angularprojectch.firebaseio.com/clientes.json';
+  apiUrlPost = 'https://angularprojectch.firebaseio.com/clientes.json';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   createAndStorePost(title1: string, content1: string) {
     const postData: Postentity = { title: title1, content: content1 };
     this.http
       .post<{ name: string }>(
-        this.apiPost,
-        postData
+        this.apiUrlPost,
+        postData,
+        {
+          //retorna todo el cuerpo del llamado con headers http code
+          observe: 'response'
+        }
       )
       .subscribe(
         responseData => {
@@ -24,14 +28,45 @@ export class PostsService {
         },
         error => {
           this.error.next(error.message);
+          console.log("Entra a createAndStorePost" + error.message);
+
         }
       );
   }
 
+
+  // createAndStorePost(title1: string, content1: string) {
+  //   const postData: Postentity = { title: title1, content: content1 };
+  //   this.http
+  //     .post<{ name: string }>(
+  //       this.apiUrlPost,
+  //       postData
+  //     )
+  //     .subscribe(
+  //       responseData => {
+  //         console.log(responseData);
+  //       },
+  //       error => {
+  //         this.error.next(error.message);
+  //         console.log("Entra a createAndStorePost"+error.message);
+  //       }
+  //     );
+  // }
+
   fetchPosts() {
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('print', 'valor1');
+    searchParams = searchParams.append('param2', 'valor2');
+
     return this.http
       .get<{ [key: string]: Postentity }>(
-        this.apiPost
+        this.apiUrlPost,
+        {
+          headers: new HttpHeaders({ 'Header-a-la-medida': 'hello world', 'hedaer-1-2': 'otro header' }),
+          //params : new HttpParams().set('parametro-1','valor-parametro1')
+          params: searchParams,
+          responseType:'json'
+        }
       )
       .pipe(
         map(responseData => {
@@ -71,7 +106,23 @@ export class PostsService {
 
   deletePosts() {
     return this.http.delete(
-      this.apiPost
-    );
+      this.apiUrlPost,
+      {
+        //retorna todo el cuerpo del llamado con headers http code
+        observe: 'events',
+        responseType:'json' //text, blob
+      }
+    ).pipe(tap(event => {
+      console.log("imprime tap del deletePosts");
+      console.log(event);
+      if (event.type === HttpEventType.Sent) {
+        console.log("imprime event Sent");
+        //... coming soon 
+      }
+      if (event.type === HttpEventType.Response) {
+        console.log("imprime event Response");
+        console.log(event.body);
+      }
+    }));
   }
 }
