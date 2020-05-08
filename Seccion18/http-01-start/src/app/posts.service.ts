@@ -8,6 +8,7 @@ import { Postentity } from './postentity.model';
 export class PostsService {
   error = new Subject<string>();
   apiUrlPost = 'https://angularprojectch.firebaseio.com/clientes.json';
+  apiUrlExternalPost='https://jsonplaceholder.typicode.com/posts';
 
   constructor(private http: HttpClient) { }
 
@@ -52,6 +53,32 @@ export class PostsService {
   //       }
   //     );
   // }
+
+  fetchPosts2() { 
+    return this.http
+      .get<{ [key: string]: Postentity }>(
+        this.apiUrlExternalPost,
+        {
+          headers: new HttpHeaders(),
+          responseType:'json'
+        }
+      )
+      .pipe(
+        map(responseData => {
+          const postsArray: Postentity[] = [];
+          for (const key in responseData) {
+            if (responseData.hasOwnProperty(key)) {
+              postsArray.push({ ...responseData[key], id: key });
+            }
+          }
+          return postsArray;
+        }),
+        catchError(errorRes => {
+          // Send to analytics server
+          return throwError(errorRes);
+        })
+      );
+  }
 
   fetchPosts() {
     let searchParams = new HttpParams();

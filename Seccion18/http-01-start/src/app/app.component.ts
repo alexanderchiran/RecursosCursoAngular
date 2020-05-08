@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 })
 export class AppComponent implements OnInit, OnDestroy {
   loadedPosts : Postentity[] = [];
+  externalPost: Postentity[]= [];
   isFetching = false;
   error = null;
   private errorSubscription : Subscription;
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.error = errorMessage;      
     });
     this.onFetchPosts();
+    this.onFetchPosts2();
   }
 
   ngOnDestroy(){
@@ -50,6 +52,25 @@ export class AppComponent implements OnInit, OnDestroy {
           console.log(error.message);
       }  
     );
+  }
+
+  onFetchPosts2() {
+    // Send Http request
+    this.isFetching= true;
+    this.postService.fetchPosts2().subscribe(
+      posts =>{
+        this.isFetching=false;
+        this.externalPost = posts;
+      }, error => {
+          this.isFetching= false;
+          this.error = error.message;
+          console.log(error);
+          console.log(error.message);
+      }  
+    );
+
+    console.log("lista de post externos");
+    console.log(this.externalPost);
   }
 
   onClearPosts() {

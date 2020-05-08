@@ -3,4 +3,6 @@ export interface Postentity {
   content: string;
   // es opcional ?
   id?: string;
+  userId?: number;
+  body?: string;
 }

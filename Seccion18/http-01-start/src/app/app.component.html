@@ -4,29 +4,13 @@
       <form #postForm="ngForm" (ngSubmit)="onCreatePost(postForm.value)">
         <div class="form-group">
           <label for="title">Title</label>
-          <input
-            type="text"
-            class="form-control"
-            id="title"
-            required
-            ngModel
-            name="title"
-          />
+          <input type="text" class="form-control" id="title" required ngModel name="title" />
         </div>
         <div class="form-group">
           <label for="content">Content</label>
-          <textarea
-            class="form-control"
-            id="content"
-            required
-            ngModel
-            name="content"
-          ></textarea>
+          <textarea class="form-control" id="content" required ngModel name="content"></textarea>
         </div>
-        <button
-          class="btn btn-primary"
-          type="submit"
-          [disabled]="!postForm.valid">
+        <button class="btn btn-primary" type="submit" [disabled]="!postForm.valid">
           Send Post
         </button>
       </form>
@@ -39,11 +23,7 @@
         Fetch Posts
       </button>
       |
-      <button
-        class="btn btn-danger"
-        [disabled]="loadedPosts.length < 1"
-        (click)="onClearPosts()"
-      >
+      <button class="btn btn-danger" [disabled]="loadedPosts.length < 1" (click)="onClearPosts()">
         Clear Posts
       </button>
     </div>
@@ -55,6 +35,14 @@
         <li class="list-group-item" *ngFor="let post of loadedPosts">
           <h3>{{ post.title }}</h3>
           <p>{{ post.content }}</p>
+        </li>
+      </ul>
+      <ul class="list-group" *ngIf="externalPost.length >= 1 && !isFetching">
+        <li class="list-group-item" *ngFor="let post of externalPost">
+          <p>UserId: {{ post.userId }} </p>
+          <p> id: {{ post.id }}</p>
+          <p>title: {{ post.title }}</p>
+          <p> body: {{ post.body }}</p>
         </li>
       </ul>
       <p *ngIf="isFetching && !error">Loading...</p>
