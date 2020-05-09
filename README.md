@@ -53,6 +53,16 @@ Course Project - Forms
 ## Seccion 17
 Using Pipes to Transform Output
 
+## Seccion 18
+Making Http Requests
+
+## Seccion 19
+Course Project - Http
+
+## Seccion 20
+Authentication & Route Protection in Angular
+
+
 
 
 
