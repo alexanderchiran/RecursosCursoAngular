@@ -22,8 +22,8 @@ export class AuthService {
   //user = new Subject<User>();
   private tokenExpirationTimer: any;
   
-  signUpApiRestService='https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=XXX'
-  loginApiRestService='https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=XXX'
+  signUpApiRestService='https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=XXXXXXX'
+  loginApiRestService='https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=XXXXXX'
 
   constructor(private http: HttpClient, private router: Router) {}
 
