@@ -62,7 +62,19 @@ Course Project - Http
 ## Seccion 20
 Authentication & Route Protection in Angular
 
+##comandos útiles
+nuevo proyecto
 
+npm install -g @angular/cli
+
+compilar 
+ng build --prod
+
+## install Firebase tools
+
+npm install -g firebase-tools
+
+>firebase init
 
 
 
