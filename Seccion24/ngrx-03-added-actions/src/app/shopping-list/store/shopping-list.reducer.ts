@@ -12,7 +12,9 @@ export function shoppingListReducer(
   switch (action.type) {
     case ShoppingListActions.ADD_INGREDIENT:
       return {
+		   //se recupera el estado para no perder la data anteriror
         ...state,
+		 //adiciono los viejos elemetos y agrego el nuevo elemento
         ingredients: [...state.ingredients, action.payload]
       };
     case ShoppingListActions.ADD_INGREDIENTS:

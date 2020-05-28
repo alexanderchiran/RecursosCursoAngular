@@ -76,5 +76,9 @@ npm install -g firebase-tools
 
 >firebase init
 
+## Install NgRx
+npm install --save @ngrx/store
+npm install --save @ngrx/effect
+
 
 

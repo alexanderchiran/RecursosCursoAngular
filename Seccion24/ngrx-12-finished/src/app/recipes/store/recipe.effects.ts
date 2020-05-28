@@ -15,7 +15,7 @@ export class RecipeEffects {
     ofType(RecipesActions.FETCH_RECIPES),
     switchMap(() => {
       return this.http.get<Recipe[]>(
-        'https://ng-course-recipe-book-65f10.firebaseio.com/recipes.json'
+        'https://angularrecipealex.firebaseio.com/recipes.json'
       );
     }),
     map(recipes => {
@@ -37,7 +37,7 @@ export class RecipeEffects {
     withLatestFrom(this.store.select('recipes')),
     switchMap(([actionData, recipesState]) => {
       return this.http.put(
-        'https://ng-course-recipe-book-65f10.firebaseio.com/recipes.json',
+        'https://angularrecipealex.firebaseio.com/recipes.json',
         recipesState.recipes
       );
     })
