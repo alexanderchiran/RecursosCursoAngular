@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    //valida si la app se corre en server o en cliente
     if (isPlatformBrowser(this.platformId)) {
       this.store.dispatch(new AuthActions.AutoLogin());
     }
